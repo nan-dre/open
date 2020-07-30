@@ -1,5 +1,8 @@
 #include <Windows.h>
 #include "gameStructs.h"
+#include <iostream>
+#include <fstream>
+
 
 BOOL WINAPI DllMain(
 	HINSTANCE hinstDLL,
@@ -16,6 +19,10 @@ BOOL WINAPI DllMain(
 	return true;
 }
 
+
+bool readEntireFile(const char* name, void* buffer, size_t size, size_t* sizeRead);
+
+
 extern "C" __declspec(dllexport) void gameLogic(GameInput* input, GameMemory* memory, 
 	VolatileMemory *volatileMemory, GameWindowBuffer* windowBuffer)
 {
@@ -23,7 +30,11 @@ extern "C" __declspec(dllexport) void gameLogic(GameInput* input, GameMemory* me
 
 	if(memory->isInitialized==0)
 	{
-		//poti aici incarca romul
+		//incarc rom-ul
+		readEntireFile("D:\\Proiecte\\Infoedu\\open\\gameSetup\\rom.txt", memory->rom, 4091, &memory->count);
+		std::cout << memory->rom << memory->count;
+		
+		
 		//tot aici initializezi variabile etc
 
 		memory->posX = 0;
@@ -84,23 +95,58 @@ extern "C" __declspec(dllexport) void gameLogic(GameInput* input, GameMemory* me
 
 	//move player
 
-	float spped = 140 * deltaTime;
+	//float spped = 140 * deltaTime;
+	int spped = 1;
 		
-		if(input->up.held)
+		if(input->up.pressed)
 		{
 			memory->posY -= spped;
 		}
-		if (input->down.held)
+		if (input->down.pressed)
 		{
 			memory->posY += spped;
 		}
-		if (input->left.held)
+		if (input->left.pressed)
 		{
 			memory->posX -= spped;
 		}
-		if (input->right.held)
+		if (input->right.pressed)
 		{
 			memory->posX += spped;
 		}
 
+}
+
+bool readEntireFile(const char* name, void* buffer, size_t size, size_t* sizeRead)
+{
+	if (sizeRead)
+	{
+		*sizeRead = 0;
+	}
+
+	HANDLE file = CreateFile(name, GENERIC_READ, NULL, NULL,
+		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+
+	if (file == INVALID_HANDLE_VALUE)
+	{
+		return 0;
+	}
+
+	DWORD sizeRead1 = 0;
+
+	int rez = 1;
+
+	if (!ReadFile(file, buffer, size, &sizeRead1, NULL))
+	{
+		rez = 0;
+	}
+
+	if (sizeRead)
+	{
+		*sizeRead = sizeRead1;
+	}
+
+	CloseHandle(file);
+
+	return rez;
 }

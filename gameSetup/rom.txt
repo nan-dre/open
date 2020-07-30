@@ -1,0 +1,8 @@
+push r1,0
+push r2,0
+rember 
+add r1,r3
+add r2,r4
+clear
+draw r1, r2
+goto

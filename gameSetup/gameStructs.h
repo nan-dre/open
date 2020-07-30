@@ -23,6 +23,9 @@ struct GameMemory
 		};
 		char r[6];
 	};
+	char rom[4092];
+	char ram[128];
+	size_t count;
 
 	char memory[1000];
 };
