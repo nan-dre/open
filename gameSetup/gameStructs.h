@@ -5,27 +5,12 @@
 struct GameMemory
 {
 	
-	float posX;
-	float posY;
+	/*float posX;
+	float posY;*/
 	char isInitialized = 0;
-
-	union
-	{
-		struct
-		{
-			char r1;
-			char r2;
-			char r3;
-			char r4;
-			char r5;
-			char r6;
-
-		};
-		char r[6];
-	};
-	char rom[4092];
+	char r[6];
+	short r[4];
 	char ram[128];
-	size_t count;
 
 	char memory[1000];
 };
