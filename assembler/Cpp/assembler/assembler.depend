@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1596192587 source:d:\proiecte\infoedu\assembler\cpp\assembler\main.cpp
+	<fstream>
+	<map>
+	<iostream>
+
