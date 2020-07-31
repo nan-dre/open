@@ -81,20 +81,19 @@ extern "C" __declspec(dllexport) void gameLogic(GameInput* input, GameMemory* me
 
 		memory->r[3] = 0;
 
-		if(input->up.pressed)
+		if(input->up.held)
 		{
-			std::cout << "up_pressed";
 			memory->r[3] += 4;
 		}
-		if (input->down.pressed)
+		if (input->down.held)
 		{
 			memory->r[3] += 8;
 		}
-		if (input->left.pressed)
+		if (input->left.held)
 		{
 			memory->r[3] += 1;
 		}
-		if (input->right.pressed)
+		if (input->right.held)
 		{
 			memory->r[3] += 2;
 		}
@@ -172,7 +171,7 @@ extern "C" __declspec(dllexport) void gameLogic(GameInput* input, GameMemory* me
 			break;
 
 		case 16: //jif
-			if(X)
+			if (X)
 				in.seekg(3 * Y + 1);
 			memory->r[2] = 0;
 			break;
@@ -180,7 +179,7 @@ extern "C" __declspec(dllexport) void gameLogic(GameInput* input, GameMemory* me
 			memory->r[1] = bool(X & Y);
 			break;
 		}
-		std::cout << "\n";//<<strlen(ram);
+		//std::cout << "\n";//<<strlen(ram);
 		
 	}
 
