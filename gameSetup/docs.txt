@@ -1,23 +1,24 @@
 Instructiuni:
 
 o instructiuiune total - 3 bytes
-6 bits / instructiune, 11 tipuri de instructiuni
+6 bits / instructiune, total 64 de instructiuni
 
 next 4 bits, 2 cate 2, daca x e registru/variabila/constanta
 0 - constanta
-1 - variabila
+1 - adresa
 2 - registru
 ? 3 - label pt culori 
 
-urm 14, luati 7 cate 7, parametrul
+urm 14, luati 7 cate 7, parametrii
 
 
 
 Registrii:
-R0 - rezultat
-R1 - finished fram
-R2 - logica
-R3 - enter goto
+R0 - aritmetica
+R1 - logica
+R2 - finished frame
+R3 - movement_x 
+R4 - movement_y
 
 Operatii:
 
@@ -33,3 +34,4 @@ Operatii:
 9 - modulo -
 10-14 - check# x y - compara x cu y dupa operatorul # si pune rezultatul in r1
 15 - not
+16 - jif - verifica val din x si daca e non-zero seteaza contorul programului la valoarea y

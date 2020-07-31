@@ -48,11 +48,11 @@ extern "C" __declspec(dllexport) void gameLogic(GameInput* input, GameMemory* me
 		memory->posY = 0;*/
 		memory->isInitialized = true;
 	}
-	memory->r[1] = 1;
+	memory->r[2] = 1;
 
 	//do game logic
 	//float deltaTime = input->deltaTime;
-	while (memory->r[1])
+	while (memory->r[2])
 	{
 		char c;
 		in.get(c);
@@ -61,9 +61,10 @@ extern "C" __declspec(dllexport) void gameLogic(GameInput* input, GameMemory* me
 		memory->ram[1] = c;
 		in.get(c);
 		memory->ram[2] = c;
-		/*std::cout << I << ' ' << T1 << ' ' << T2 << ' ' << P1 << ' ' << P2 << '\n';
-		std::cin >> c ;*/
-		std::cout << int(pos_x);
+		//std::cin >> c;
+		//std::cout << I << ' ' << T1 << ' ' << T2 << ' ' << P1 << ' ' << P2 << '\n';
+		
+		//std::cout << int(pos_x);
 		if (T1 == 0)
 			X = P1;
 		if (T1 == 1)
@@ -77,6 +78,26 @@ extern "C" __declspec(dllexport) void gameLogic(GameInput* input, GameMemory* me
 			Y = memory->ram[P2];
 		if (T2 == 2)
 			Y = memory->r[P2];
+
+		memory->r[3] = 0;
+
+		if(input->up.pressed)
+		{
+			std::cout << "up_pressed";
+			memory->r[3] += 4;
+		}
+		if (input->down.pressed)
+		{
+			memory->r[3] += 8;
+		}
+		if (input->left.pressed)
+		{
+			memory->r[3] += 1;
+		}
+		if (input->right.pressed)
+		{
+			memory->r[3] += 2;
+		}
 		
 		//for(int i=0;i<5;i++)
 		//    std::cout<<int(mask(i, memory))<<" ";
@@ -96,23 +117,22 @@ extern "C" __declspec(dllexport) void gameLogic(GameInput* input, GameMemory* me
 			windowBuffer->memory[4 * (X + Y * windowBuffer->w) + 1] = 255;	//green
 			windowBuffer->memory[4 * (X + Y * windowBuffer->w) + 2] = 255;	//red
 			windowBuffer->memory[4 * (X + Y * windowBuffer->w) + 3] = 0;
-				break;
+			break;
 		case 2: //clear
-			for(Y=0; Y<windowBuffer->h; Y++)
-					for (X = 0; X < windowBuffer->w; X++)
-					{
-						windowBuffer->memory[4 * (X + Y * windowBuffer->w) + 0] = 0;	//blue
-						windowBuffer->memory[4 * (X + Y * windowBuffer->w) + 1] = 0;	//green
-						windowBuffer->memory[4 * (X + Y * windowBuffer->w) + 2] = 0;	//red
-						windowBuffer->memory[4 * (X + Y * windowBuffer->w) + 3] = 0;
-							
-					}
+			for (Y = 0; Y < windowBuffer->h; Y++)
+				for (X = 0; X < windowBuffer->w; X++)
+				{
+					windowBuffer->memory[4 * (X + Y * windowBuffer->w) + 0] = 0;	//blue
+					windowBuffer->memory[4 * (X + Y * windowBuffer->w) + 1] = 0;	//green
+					windowBuffer->memory[4 * (X + Y * windowBuffer->w) + 2] = 0;	//red
+					windowBuffer->memory[4 * (X + Y * windowBuffer->w) + 3] = 0;
+
+				}
 			break;
 		case 3:
 			//goto
-
-			in.seekg(3 * P1 + 1);
-			memory->r[1] = memory->r[2];
+				in.seekg(3 * Y + 1);
+				memory->r[2] = 0;
 			break;
 		case 4: //exit game
 			exit(0);
@@ -137,16 +157,31 @@ extern "C" __declspec(dllexport) void gameLogic(GameInput* input, GameMemory* me
 			break;
 		case 11: //compare <=
 			memory->r[1] &= (X <= Y);
+			break;
 		case 12: //compare ==
 			memory->r[1] &= (X == Y);
+			break;
 		case 13: //compare >=
 			memory->r[1] &= (X >= Y);
+			break;
 		case 14: //compare >
 			memory->r[1] &= (X > Y);
+			break;
 		case 15: //not
 			memory->r[1] = !memory->r[1];
+			break;
+
+		case 16: //jif
+			if(X)
+				in.seekg(3 * Y + 1);
+			memory->r[2] = 0;
+			break;
+		case 17: //bitwise and
+			memory->r[1] = bool(X & Y);
+			break;
 		}
 		std::cout << "\n";//<<strlen(ram);
+		
 	}
 
 	/*char* c = (char*)volatileMemory->allocate(100);
