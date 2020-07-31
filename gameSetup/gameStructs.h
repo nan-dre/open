@@ -8,9 +8,9 @@ struct GameMemory
 	/*float posX;
 	float posY;*/
 	char isInitialized = 0;
-	char r[6];
-	short r[4];
-	char ram[128];
+	unsigned char r[6];
+	unsigned short s[4];
+	unsigned char ram[128];
 
 	char memory[1000];
 };

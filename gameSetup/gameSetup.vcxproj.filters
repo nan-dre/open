@@ -43,5 +43,13 @@
     <Text Include="docs.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="rom2.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="rom">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

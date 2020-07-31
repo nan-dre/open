@@ -2,25 +2,34 @@ Instructiuni:
 
 o instructiuiune total - 3 bytes
 6 bits / instructiune, 11 tipuri de instructiuni
+
 next 4 bits, 2 cate 2, daca x e registru/variabila/constanta
+0 - constanta
+1 - variabila
+2 - registru
+? 3 - label pt culori 
+
 urm 14, luati 7 cate 7, parametrul
 
 
+
 Registrii:
-R1 - rezultat
-R2 - auxiliarsss
+R0 - rezultat
+R1 - finished fram
+R2 - logica
+R3 - enter goto
 
 Operatii:
 
-mov - muta variabila/registru in registru/memorie
-set - scrie valoare in memorie
-draw - draw pixel
-clear - clear
-add -
-subtract - 
-multiply -
-divide -
-modulo -
-goto - mergi la instructiunea x, daca r1 != 0
-check x y - compara x cu r2 dupa operatorul y si pune rezultatul in r1
-
+0 -mov - muta variabila/registru in registru/memorie
+1 - draw - draw pixel
+2 - clear - clear
+3 - goto - mergi la instructiunea x, daca r1 != 0
+4- exit
+5 - add -
+6 - subtract - 
+7 - multiply -
+8 - divide -
+9 - modulo -
+10-14 - check# x y - compara x cu y dupa operatorul # si pune rezultatul in r1
+15 - not
