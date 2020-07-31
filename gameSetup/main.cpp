@@ -81,19 +81,19 @@ extern "C" __declspec(dllexport) void gameLogic(GameInput* input, GameMemory* me
 
 		memory->r[3] = 0;
 
-		if(input->up.held)
+		if(input->up.pressed)
 		{
 			memory->r[3] += 4;
 		}
-		if (input->down.held)
+		if (input->down.pressed)
 		{
 			memory->r[3] += 8;
 		}
-		if (input->left.held)
+		if (input->left.pressed)
 		{
 			memory->r[3] += 1;
 		}
-		if (input->right.held)
+		if (input->right.pressed)
 		{
 			memory->r[3] += 2;
 		}

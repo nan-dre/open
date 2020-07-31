@@ -17,12 +17,11 @@ Registrii:
 R0 - aritmetica
 R1 - logica
 R2 - finished frame
-R3 - movement_x 
-R4 - movement_y
-
+R3 - input
+R4 - auxiliar
 Operatii:
 
-0 -mov - muta variabila/registru in registru/memorie
+0 - mov - muta variabila/registru in registru/memorie
 1 - draw - draw pixel
 2 - clear - clear
 3 - goto - mergi la instructiunea x, daca r1 != 0
